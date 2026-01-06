@@ -1,5 +1,5 @@
+from operators import operators_priority
 class InputProcessing:
-    operators = {'+', '-', '*', '/', '^', '%', '$', '&', '@', '~', '!', '(', ')'}  # temp because I don't have the dict yet
 
     def __init__(self, equation: str):
         self.index = 0
@@ -50,7 +50,7 @@ class InputProcessing:
                     fraction_scale /= 10
                     number += fraction_scale * int(curr_char)
 
-            elif curr_char in InputProcessing.operators:# temp
+            elif curr_char in operators_priority:
                 if is_number:
                     if has_decimal and not fraction_digit_seen:
                         raise ValueError("Decimal point must have digits after it")
