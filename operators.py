@@ -6,7 +6,7 @@ def add(x: float, y: float):
 
 
 def subtract(x: float, y: float):
-    return x - y
+    return y - x
 
 
 def negate(x: float):
@@ -19,15 +19,15 @@ def multiply(x: float, y: float):
 
 def divide(x: float, y: float):
     if y == 0: raise ValueError("Division by zero is not allowed")
-    return x / y
+    return y / x
 
 
 def power(x: float, y: float):
-    return math.pow(x, y)
+    return math.pow(y, x)
 
 
 def modulo(x: float, y: float):
-    return x % y
+    return y % x
 
 
 def maximum(x: float, y: float):
@@ -48,14 +48,16 @@ def invert(x: float):
 
 def factorial(x: float):
     if x < 0: raise ValueError("Factorial is not defined for negative numbers")
-    if not x.is_integer(): raise ValueError("Factorial is only defined for integers")
+    if x % 1 != 0: raise ValueError("Factorial is only defined for integers")
     if x == 0: return 1
     return x * factorial(x - 1)
 
 
-operators_priority = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3, '%': 4, '$': 5, '&': 5, '@': 5, '~': 6, '!': 6}
+operators_priority = {'+': 1, '-': 1, '*': 2, '/': 2, 'u-': 2.5, '^': 3, '%': 4, '$': 5, '&': 5, '@': 5, 'u~': 6, '!': 6}
 
 binary_functions = {'+': add, '-': subtract, '*': multiply, '/': divide, '^': power, '%': modulo, '$': maximum,
                     '&': minimum, '@': average}
 
-unary_functions = {'-': negate, '~': invert, '!': factorial}
+unary_prefix_functions = {'u-': negate, 'u~': invert}
+
+unary_postfix_functions = {'!': factorial}

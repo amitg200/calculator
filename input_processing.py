@@ -1,4 +1,6 @@
 from operators import operators_priority
+
+
 class InputProcessing:
 
     def __init__(self, equation: str):
@@ -15,9 +17,6 @@ class InputProcessing:
 
         number: float = 0
         fraction_scale: float = 1
-
-        if self.equation == "":
-            raise ValueError("No expression provided")
 
         while self.has_next():
             curr_char = self.equation[self.index]
@@ -50,7 +49,7 @@ class InputProcessing:
                     fraction_scale /= 10
                     number += fraction_scale * int(curr_char)
 
-            elif curr_char in operators_priority:
+            elif curr_char in operators_priority or curr_char in ('(', ')', '~'):
                 if is_number:
                     if has_decimal and not fraction_digit_seen:
                         raise ValueError("Decimal point must have digits after it")
@@ -59,10 +58,10 @@ class InputProcessing:
                 return curr_char
 
             else:
-                raise ValueError(f"The equation you entered contains undefine character '{curr_char}' at index {self.index}")
+                raise ValueError(
+                    f"The equation you entered contains undefine character '{curr_char}' at index {self.index}")
 
         if has_decimal and not fraction_digit_seen:
             raise ValueError("Decimal point must have digits after it")
 
         return number
-

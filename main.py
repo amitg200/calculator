@@ -1,11 +1,16 @@
-from input_processing import InputProcessing
+from evaluator import Evaluator
 
 def main():
-    equation = input("Please enter an equation: ")
-    input_processer = InputProcessing(equation)
 
-    while input_processer.has_next():
-        print(input_processer.get_next())
+    while(True):
+        try:
+            equation = input("Please enter an equation: ")
+            if equation == "exit":
+                break
+            evaluator = Evaluator(equation)
+            print(evaluator.evaluate())
+        except Exception as e:
+            print(e)
 
 if __name__ == "__main__":
     main()
