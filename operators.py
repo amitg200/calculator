@@ -18,7 +18,7 @@ def multiply(x: float, y: float):
 
 
 def divide(x: float, y: float):
-    if y == 0: raise ValueError("Division by zero is not allowed")
+    if x == 0: raise ValueError("Division by zero is not allowed")
     return y / x
 
 
