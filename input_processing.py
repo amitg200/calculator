@@ -12,9 +12,19 @@ class InputProcessing:
         self.equation = equation.strip()
 
     def has_next(self):
+        """
+        Check if there are remaining characters in the equation to process.
+        """
         return self.index < len(self.equation)
 
     def get_next(self):
+        """
+            Extract the next token (number or operator) from the equation.
+
+            This method handles multi-digit numbers, decimal points, and
+            whitespace. It raises a ValueError for invalid number formats
+            or undefined characters.
+        """
         is_number: bool = False
         has_decimal: bool = False
         fraction_digit_seen: bool = False

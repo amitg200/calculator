@@ -23,6 +23,13 @@ class Evaluator:
         self.input_processor.reset(equation)
 
     def evaluate(self):
+        """
+        The main loop that processes tokens and returns the final result.
+
+        It alternates between expecting a value (number/prefix) and
+        an operator (binary/postfix/parenthesis), applying math rules
+        via stacks as it goes.
+        """
         after_tilda: bool = False
         while self.input_processor.has_next():
             current = self.input_processor.get_next()
@@ -99,6 +106,10 @@ class Evaluator:
         return self.values_stack[0]
 
     def apply_top_operator(self):
+        """
+            Pop the top operator and its required operands, calculate,
+            and push the result back.
+        """
         operator: str = self.operators_stack.pop()
         if operator in binary_functions:
             result: float = binary_functions[operator](self.values_stack.pop(), self.values_stack.pop())
@@ -109,6 +120,9 @@ class Evaluator:
         self.values_stack.append(result)
 
     def clear_stack_until_parenthesis(self):
+        """
+        Process all operators until an opening parenthesis '(' is encountered.
+        """
         while self.operators_stack and self.operators_stack[-1] != '(':
             self.apply_top_operator()
 
@@ -118,6 +132,9 @@ class Evaluator:
         self.operators_stack.pop()
 
     def clear_stack(self):
+        """
+        Empty the operator stack by processing all remaining operations.
+        """
         while self.operators_stack:
             if self.operators_stack[-1] == '(':
                 raise ValueError("Invalid syntax: unmatched '('.")
