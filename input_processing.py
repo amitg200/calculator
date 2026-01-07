@@ -7,6 +7,10 @@ class InputProcessing:
         self.index = 0
         self.equation = equation.strip()
 
+    def reset(self, equation: str):
+        self.index = 0
+        self.equation = equation.strip()
+
     def has_next(self):
         return self.index < len(self.equation)
 

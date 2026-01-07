@@ -16,6 +16,12 @@ class Evaluator:
         self.current_evaluation_state = EvaluationState.expecting_value
         self.input_processor = InputProcessing(equation)
 
+    def reset(self, equation: str):
+        self.values_stack = []
+        self.operators_stack = []
+        self.current_evaluation_state = EvaluationState.expecting_value
+        self.input_processor.reset(equation)
+
     def evaluate(self):
         after_tilda: bool = False
         while self.input_processor.has_next():

@@ -2,12 +2,13 @@ from evaluator import Evaluator
 
 def main():
 
+    evaluator = Evaluator("temp")
     while(True):
         try:
             equation = input("Please enter an equation: ")
             if equation == "exit":
                 break
-            evaluator = Evaluator(equation)
+            evaluator.reset(equation)
             print(evaluator.evaluate())
         except Exception as e:
             print(e)
