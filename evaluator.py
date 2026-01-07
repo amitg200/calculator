@@ -62,18 +62,17 @@ class Evaluator:
 
                     self.current_evaluation_state = EvaluationState.expecting_value
                 elif current in unary_postfix_functions:
-                    # print(self.operators_stack)
-                    # print(self.values_stack)
-                    unary_postfix_before_factorial: bool = False
-                    for op in reversed(self.operators_stack):
-                        if op == 'u~' or op in binary_functions or op == ('(', ')'):
-                            unary_postfix_before_factorial = True
-                        if op != 'u-':
-                            break
+                    if current == '!':
+                        unary_postfix_before_factorial: bool = False
+                        for op in reversed(self.operators_stack):
+                            if op == 'u~' or op in binary_functions or op == ('(', ')'):
+                                unary_postfix_before_factorial = True
+                            if op != 'u-':
+                                break
 
-                    while self.operators_stack and self.operators_stack[
-                        -1] in unary_prefix_functions and unary_postfix_before_factorial:
-                        self.apply_top_operator()
+                        while self.operators_stack and self.operators_stack[
+                            -1] in unary_prefix_functions and unary_postfix_before_factorial:
+                            self.apply_top_operator()
 
                     result: float = unary_postfix_functions[current](self.values_stack.pop())
                     self.values_stack.append(result)

@@ -53,11 +53,22 @@ def factorial(x: float):
     return x * factorial(x - 1)
 
 
-operators_priority = {'+': 1, '-': 1, '*': 2, '/': 2, 'u-': 2.5, '^': 3, '%': 4, '$': 5, '&': 5, '@': 5, 'u~': 6, '!': 6}
+def sum_digits(x: float):
+    if x < 0: raise ValueError("sum_digits is not defined for negative numbers")
+    digits_in_str: str = str(x)
+    total: int = 0
+    for ch in digits_in_str:
+        if ch.isdigit():
+            total += int(ch)
+    return total
+
+
+operators_priority = {'+': 1, '-': 1, '*': 2, '/': 2, 'u-': 2.5, '^': 3, '%': 4, '$': 5, '&': 5, '@': 5, 'u~': 6,
+                      '!': 6, '#': 6}
 
 binary_functions = {'+': add, '-': subtract, '*': multiply, '/': divide, '^': power, '%': modulo, '$': maximum,
                     '&': minimum, '@': average}
 
 unary_prefix_functions = {'u-': negate, 'u~': invert}
 
-unary_postfix_functions = {'!': factorial}
+unary_postfix_functions = {'!': factorial, '#': sum_digits}
